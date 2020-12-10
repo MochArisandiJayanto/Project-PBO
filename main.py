@@ -2,11 +2,44 @@ import sqlite3
 
 class Bank:
 
-    def melihatSaldo():
+
+    def membuatAkun(Nama, Jumlah_Saldo, Username, Password):
+        con=sqlite3.connect("data.db")
+        cur =con.cursor()
+        query = 'INSERT INTO Akun (Nama, [Jumlah Saldo], Username, Password) \
+            VALUES (\'%s\', \'%s\', \'%s\', \'%s\')' 
+        query = query % (Nama, Jumlah_Saldo, Username, Password)
+        cur.execute(query)
+        con.commit()
+        con.close()
+    
+    def login(Username, Password):
+        con=sqlite3.connect("data.db")
+        cur =con.cursor()
+        query = 'SELECT Username, Password FROM Akun \
+        where Username=\'%s\' and Password=\'%s\' '
+        query = query % (Username, Password)
+        cur.execute(query)
+        con.commit()
+        rows =cur.fetchall()
+        accept_Login = True
+        if (len(rows)) == 0:
+            accept_Login = False
+        if accept_Login == False:
+            print("Login Gagal")
+        elif Username == rows[0][0] and Password == rows[0][1]:
+            accept_Login = True
+            print("Login Sukses") 
+            return Username    
+        con.close()
+    
+    
+    def cekSaldo():
         con=sqlite3.connect("data.db")
         cur =con.cursor()
         cur.execute("SELECT Nama,[Jumlah Saldo] From Akun")
         rows =cur.fetchall()
+        
         con.close()
         return rows
 
@@ -36,29 +69,40 @@ while ch != 8:
     #system("cls");
     print("\tMAIN MENU")
     print("\t\t1. Membuat Akun Baru")
-    print("\t\t2. Jumlah Saldo")
-    print("\t\t3. Menarik Saldo")
-    print("\t\t4. Transfer")
-    print("\t\t5. Edit Akun")
-    print("\t\t6. Melihat Akun")
-    print("\t\t7. Exit")
-    ch = int(input("\t\tMasukkan Pilihan Anda (1-7) :  "))
+    print("\t\t2. LOGIN")
+    print("\t\t3. Cek Saldo")
+    print("\t\t4. Menarik Saldo")
+    print("\t\t5. Transfer")
+    print("\t\t6. Edit Akun")
+    print("\t\t7. Melihat Akun")
+    print("\t\t8. Exit")
+    ch = int(input("\t\tMasukkan Pilihan Anda (1-8) :  "))
     #system("cls");
     
     if ch == 1:
         print("Membuat Akun")
+        Nama = input("Masukkan Nama : ")
+        Jumlah_Saldo = int(input("Masukkan Jumlah Saldo : "))
+        Username = input("Masukkan Username Akun Anda : ")
+        Password = input("Masukkan Password Anda(Password Menggunakan Angka) : ")
+        Bank.membuatAkun(Nama, Jumlah_Saldo, Username, Password)
     elif ch == 2:
-        print("Jumlah Saldo")
-        print(Bank.melihatSaldo())
+        print("Login")
+        Username = input("Masukkan Username Akun Anda : ")
+        Password = input("Masukkan Password Anda(Password Menggunakan Angka) : ")
+        Akun = Bank.login(Username,Password)
     elif ch == 3:
-        print("Menarik saldo")
+        print("Cek Saldo")
+        print(Akun, Bank.cekSaldo())
     elif ch == 4:
-        print("Transfer")
+        print("Menarik saldo")
     elif ch == 5:
-        print("Edit Akun")
+        print("Transfer")
     elif ch == 6:
-        print(Bank.melihatAkun())
+        print("Edit Akun")
     elif ch == 7:
+        print(Bank.melihatAkun())
+    elif ch == 8:
         print("\tTerimakasih Sudah Menggunakan SISTEM MANAJEMEN BANK")
         break
     else :
