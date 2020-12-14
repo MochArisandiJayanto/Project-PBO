@@ -25,23 +25,29 @@ class Bank:
         accept_Login = True
         if (len(rows)) == 0:
             accept_Login = False
+
         if accept_Login == False:
             print("Login Gagal")
         elif Username == rows[0][0] and Password == rows[0][1]:
             accept_Login = True
-            print("Login Sukses") 
-            return Username    
+            print("Login Sukses")
+            return Username
+        
         con.close()
     
-    
-    def cekSaldo():
+    def cekSaldo(Username):
         con=sqlite3.connect("data.db")
         cur =con.cursor()
-        cur.execute("SELECT Nama,[Jumlah Saldo] From Akun")
-        rows =cur.fetchall()
+        query = "SELECT Nama,[Jumlah Saldo] From Akun where Username = \'%s\'"
+        query = query % (Username)
+        cur.execute(query)
+        con.commit()
+
+        rows = cur.fetchone()
         
         con.close()
         return rows
+        print()
 
     def melihatAkun():
         con=sqlite3.connect("data.db")
@@ -63,6 +69,7 @@ def intro():
 
 ch=''
 num=0
+sessionUsername = []
 intro()
 
 while ch != 8:
@@ -91,9 +98,10 @@ while ch != 8:
         Username = input("Masukkan Username Akun Anda : ")
         Password = input("Masukkan Password Anda(Password Menggunakan Angka) : ")
         Akun = Bank.login(Username,Password)
+        sessionUsername.append(Username)
     elif ch == 3:
         print("Cek Saldo")
-        print(Akun, Bank.cekSaldo())
+        print(Akun, Bank.cekSaldo(Username))
     elif ch == 4:
         print("Menarik saldo")
     elif ch == 5:
@@ -101,6 +109,7 @@ while ch != 8:
     elif ch == 6:
         print("Edit Akun")
     elif ch == 7:
+        print("Akun yang terdaftar di Bank")
         print(Bank.melihatAkun())
     elif ch == 8:
         print("\tTerimakasih Sudah Menggunakan SISTEM MANAJEMEN BANK")
