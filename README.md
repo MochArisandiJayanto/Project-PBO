@@ -6,5 +6,5 @@ Repository Projecet PBO pembuatan sistem bank berbasis opp
 
 **Kontributor:**
 =============
-* [MochArisandiJayanto](https://github.com/MochArisandiJayanto) (192410103064)
+* [Moch Arisandi Jayanto](https://github.com/MochArisandiJayanto) (192410103064)
 * [Ahmad Faishol Fawwas](https://github.com/XBrT-1)	(192410103065)
