@@ -12,7 +12,7 @@ class Bank:
         cur.execute(query)
         con.commit()
         con.close()
-        print("Membuat Akun Sukses")
+        print("selamat Akun anda telah terdaftar")
     
     def login(Username, Password):
         con=sqlite3.connect("data.db")
@@ -58,7 +58,7 @@ class Bank:
         cur.execute(query)
         con.commit()
         rows = cur.fetchall()
-        tarik = int(input("Masukkan Mau Ngambil Berapa : "))
+        tarik = int(input("Masukkan jumlah penarikan : "))
         a = rows[0][0] - tarik
         print("\n============================================================================================")
         print("Penarikan Saldo Senilai", tarik, "Sukses.", "\nSisa Saldo Anda Saat Ini : ",a)
@@ -79,7 +79,7 @@ class Bank:
         con.commit()
         rows = cur.fetchall()
         UsernameTujuan = input("Masukkan Username Tujuan : ")
-        Tf = int(input("Masukkan Berapa Yang Mau Ditransfer : "))
+        Tf = int(input("Masukkan jumlah uang untuk ditransfer : "))
         a = rows[0][0] - Tf
         sql = "UPDATE Akun SET [Jumlah Saldo] = \'%s\' where Username = \'%s\' and Password = \'%s\'"
         sql = sql % (a, Username, Password)
@@ -120,15 +120,6 @@ class Bank:
         con.close()
         print("Perubahan Password Sukses")
 
-
-    # def melihatAkun():
-    #     con=sqlite3.connect("data.db")
-    #     cur =con.cursor()
-    #     cur.execute("SELECT Nama From Akun")
-    #     rows =cur.fetchall()
-    #     con.close()
-    #     return rows
-
 def intro():
     print("\t\t\t\t**********************")
     print("\t\t\t\tSISTEM MANAJEMEN BANK")
@@ -145,7 +136,6 @@ sessionUsername = []
 intro()
 
 while ch != 8:
-    #system("cls");
     print("\tMAIN MENU")
     print("\t\t1. Membuat Akun Baru")
     print("\t\t2. LOGIN")
@@ -153,7 +143,6 @@ while ch != 8:
     print("\t\t4. Menarik Saldo")
     print("\t\t5. Transfer")
     print("\t\t6. Edit Akun")
-    #print("\t\t7. Melihat Akun")
     print("\t\t7. Exit")
     ch = int(input("\t\tMasukkan Pilihan Anda (1-8) :  "))
     
@@ -174,7 +163,7 @@ while ch != 8:
         print("Cek Saldo")
         Akun, Bank.cekSaldo(Username)
     elif ch == 4:
-        print("Menarik saldo")
+        print("Tarik saldo")
         Akun, Bank.menarikSaldo(Username, Password)
     elif ch == 5:
         print("Transfer")
@@ -182,9 +171,6 @@ while ch != 8:
     elif ch == 6:
         print("Edit Akun")
         Akun, Bank.EditAkun(Username, Password)
-    # elif ch == 7:
-    #     print("Akun yang terdaftar di Bank")
-    #     print(Bank.melihatAkun())
     elif ch == 7:
         print("\tTerimakasih Sudah Menggunakan SISTEM MANAJEMEN BANK")
         break
