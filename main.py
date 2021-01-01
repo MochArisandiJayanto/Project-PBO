@@ -1,6 +1,26 @@
 import sqlite3
+import abc
+class akunn(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def membuatAkun():
+        pass
+    @abc.abstractmethod
+    def login():
+        pass
+    @abc.abstractmethod
+    def cekSaldo():
+        pass
+    @abc.abstractmethod
+    def menarikSaldo():
+        pass
+    @abc.abstractmethod
+    def Transfer():
+        pass
+    @abc.abstractmethod
+    def EditAkun():
+        pass
 
-class Bank:
+class Bank(akunn):
 
 
     def membuatAkun(Nama, Jumlah_Saldo, Username, Password):
