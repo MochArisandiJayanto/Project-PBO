@@ -23,16 +23,16 @@ class akunn(metaclass=abc.ABCMeta):
 class Bank(akunn):
 
 
-    def membuatAkun(Nama, Jumlah_Saldo, Username, Password):
+    def membuatAkun(Nama, Jumlah_Saldo, Username, Password, tempat_tanggal_lahir, nama_ibu, ktp, alamat, status_kewarganegaraan, status_perkawinan, pendidikan_terakhir, agama, alamat_sekarang, telepon_seluler, email):
         con=sqlite3.connect("data.db")
         cur =con.cursor()
-        query = 'INSERT INTO Akun (Nama, [Jumlah Saldo], Username, Password) \
-            VALUES (\'%s\', \'%s\', \'%s\', \'%s\')' 
-        query = query % (Nama, Jumlah_Saldo, Username, Password)
+        query = 'INSERT INTO Akun (Nama, [Jumlah Saldo], Username, Password,[tempat tanggal lahir],[nama ibu],ktp,alamat,[status kewarganegaraan],[status perkawinan],[pendidikan terakhir],agama,[alamat sekarang],[telepon seluler],email) \
+            VALUES (\'%s\', \'%s\', \'%s\', \'%s\',\'%s\', \'%s\',\'%s\', \'%s\',\'%s\', \'%s\',\'%s\', \'%s\',\'%s\', \'%s\',\'%s\')' 
+        query = query % (Nama, Jumlah_Saldo, Username, Password, tempat_tanggal_lahir, nama_ibu, ktp, alamat, status_kewarganegaraan, status_perkawinan, pendidikan_terakhir, agama, alamat_sekarang, telepon_seluler, email)
         cur.execute(query)
         con.commit()
         con.close()
-        print("selamat Akun anda telah terdaftar")
+        print("selamat Akun anda telah terdaftar di Bank BKIDs")
     
     def login(Username, Password):
         con=sqlite3.connect("data.db")
@@ -142,12 +142,12 @@ class Bank(akunn):
 
 def intro():
     print("\t\t\t\t**********************")
-    print("\t\t\t\tSISTEM MANAJEMEN BANK")
+    print("\t\t\t\tBank BKIDs")
     print("\t\t\t\t**********************")
 
     print("\t\t\t\tDibuat Oleh:")
     print("\t\t\t\tMOCH. ARISANDI JAYANTO")
-    print("\t\t\t\tAhmad Faishol Fawwas")
+    print("\t\t\t\tAHMAD FAISHOL FAWWAS")
     input("Klik Enter Untuk Lanjut")
 
 ch=''
@@ -169,10 +169,21 @@ while ch != 8:
     if ch == 1:
         print("Membuat Akun")
         Nama = input("Masukkan Nama : ")
-        Jumlah_Saldo = int(input("Masukkan Jumlah Deposit : "))
+        tempat_tanggal_lahir = input("masukkan tempat,tanggal lahir sesuai ktp: ")
+        nama_ibu = input("masukkan nama ibu kandung asli : ")
+        ktp = input("masukkan nomer ktp : ")
+        alamat = input("masukkan alamat tinggal sesuai ktp  : ")
+        status_kewarganegaraan = input("masukkan status kewarganegaraan WNI/WNA : ")
+        status_perkawinan = input("masukkan status perkawinan apakah lajang/single/duda/janda : ")
+        pendidikan_terakhir = input("masukkan pendidikan terakhir anda : ")
+        agama = input("masukkan agama anda : ")
+        alamat_sekarang = input("masukkan alamat tinggal sekarang : ")
+        telepon_seluler = input("masukkan nomer telepon seluler : ")
+        email = input("masukkan email anda (ex: babykids@gmail.com) : ")
         Username = input("Masukkan Username Akun Anda : ")
         Password = input("Masukkan Password Anda : ")
-        Bank.membuatAkun(Nama, Jumlah_Saldo, Username, Password)
+        Jumlah_Saldo = int(input("Masukkan Jumlah Deposit : "))
+        Bank.membuatAkun(Nama, Jumlah_Saldo, Username, Password, tempat_tanggal_lahir, nama_ibu, ktp, alamat, status_kewarganegaraan, status_perkawinan, pendidikan_terakhir, agama, alamat_sekarang, telepon_seluler, email)
     elif ch == 2:
         print("Login")
         Username = input("Masukkan Username Akun Anda : ")
@@ -192,7 +203,7 @@ while ch != 8:
         print("Edit Akun")
         Akun, Bank.EditAkun(Username, Password)
     elif ch == 7:
-        print("\tTerimakasih Sudah Menggunakan SISTEM MANAJEMEN BANK")
+        print("\tTerimakasih Sudah Menggunakan Bank BKIDs")
         break
     else :
         print("Error! Tidak ditemukan pilihan")
