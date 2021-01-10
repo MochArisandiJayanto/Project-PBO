@@ -20,6 +20,12 @@ class akunn(metaclass=abc.ABCMeta):
     def EditAkun():
         pass
 
+class pemilik():
+    def __init__(self,bkids):
+        self.bkids=bkids
+    def Bkids(self):
+        print(self.bkids)
+
 class Bank(akunn):
 
 
@@ -155,7 +161,7 @@ num=0
 sessionUsername = []
 intro()
 
-while ch != 8:
+while ch != 9:
     print("\tMAIN MENU")
     print("\t\t1. Membuat Akun Baru")
     print("\t\t2. LOGIN")
@@ -163,7 +169,8 @@ while ch != 8:
     print("\t\t4. Menarik Saldo")
     print("\t\t5. Transfer")
     print("\t\t6. Edit Akun")
-    print("\t\t7. Exit")
+    print("\t\t7. About BKIDS")
+    print("\t\t.8 Exit")
     ch = int(input("\t\tMasukkan Pilihan Anda (1-8) :  "))
     
     if ch == 1:
@@ -203,6 +210,9 @@ while ch != 8:
         print("Edit Akun")
         Akun, Bank.EditAkun(Username, Password)
     elif ch == 7:
+        about= pemilik("===========================================BKIDS=================================================\nBANK BKIDS Dibuat oleh 2 mahasiswa universitas Jember prodi Informatika yaitu :\nMOCH. ARISANDI JAYANTO \nAHMAD FAISHOL FAWWAS\nDibuat 2020 september 20\n===========================================BKIDS=================================================")
+        about.Bkids()
+    elif ch == 8:
         print("\tTerimakasih Sudah Menggunakan Bank BKIDs")
         break
     else :
