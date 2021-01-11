@@ -1,5 +1,7 @@
 import sqlite3
 import abc
+import getpass
+
 class akunn(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def membuatAkun():
@@ -188,13 +190,13 @@ while ch != 9:
         telepon_seluler = input("masukkan nomer telepon seluler : ")
         email = input("masukkan email anda (ex: babykids@gmail.com) : ")
         Username = input("Masukkan Username Akun Anda : ")
-        Password = input("Masukkan Password Anda : ")
+        Password = getpass.getpass("Masukkan Password Anda : ")
         Jumlah_Saldo = int(input("Masukkan Jumlah Deposit : "))
         Bank.membuatAkun(Nama, Jumlah_Saldo, Username, Password, tempat_tanggal_lahir, nama_ibu, ktp, alamat, status_kewarganegaraan, status_perkawinan, pendidikan_terakhir, agama, alamat_sekarang, telepon_seluler, email)
     elif ch == 2:
         print("Login")
         Username = input("Masukkan Username Akun Anda : ")
-        Password = input("Masukkan Password Anda : ")
+        Password = getpass.getpass("Masukkan Password Anda : ")
         Akun = Bank.login(Username,Password)
         sessionUsername.append(Username)
     elif ch == 3:
