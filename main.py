@@ -139,7 +139,7 @@ class Bank(akunn):
         cur.execute(query)
         con.commit()
         quen = cur.fetchall()
-        a = input("Masukkan Password Baru : ")
+        a = stdiomask.getpass("Masukkan Password Baru : ", mask="*")
         b = quen[0][0]
         b = a
         query = "UPDATE Akun SET Password = \'%s\' Where Username = \'%s\' and Password = \'%s\'" 
